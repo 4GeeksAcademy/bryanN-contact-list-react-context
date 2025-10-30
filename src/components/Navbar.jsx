@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 
+
 export const Navbar = () => {
 
 	return (
@@ -13,7 +14,10 @@ export const Navbar = () => {
 						<button className="btn btn-primary">Check the Context in action</button>
 					</Link>
 					<Link to={'/card'}>
-						<button className="btn btn-primary">Check the Context in card</button>
+						<button className="btn btn-secondary">Check the Context in card</button>
+					</Link>
+					<Link to={'/add_contact'}>
+						<button className="btn btn-danger">Check the Context in add-button</button>
 					</Link>
 				</div>
 			</div>

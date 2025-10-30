@@ -37,3 +37,4 @@ const AddContact = () => {
         </form>
     )
 }
+export default AddContact;
