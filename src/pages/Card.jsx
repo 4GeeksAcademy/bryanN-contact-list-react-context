@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
+import { Home } from "./Home";
 
-export const Card= () => {
+export const Card = () => {
     return (
         <div>
+            <Link to="/">
+                <button className="btn btn-primary">Back home</button>
+            </Link>
             <div className="card" style={{ width: "18rem;" }}>
                 <img src="..." className="card-img-top" alt="..." />
                 <div className="card-body">
