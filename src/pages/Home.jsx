@@ -30,7 +30,7 @@ export const Home = () => {
 		<div className="text-center mt-5">
 			<h1>Hello Rigo!!</h1>
 			{contact.map((item)=>(
-				key={item.id},
+				// key={item.id},
 				informacion={item}
 			))}
 		</div>
