@@ -1,37 +1,40 @@
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"
+import ContactCard from "../components/ContactCard.jsx";
 
 export const Home = () => {
 
-  const {store, dispatch} =useGlobalReducer()
-	const contact = store.contacts || []
+	const { store, dispatch } = useGlobalReducer()
+	const contacts = store.contacts || []
 
 
-	const getContacts = async() =>{
+	const getContacts = async () => {
 		try {
 			const response = await fetch(`https://playground.4geeks.com/contact/agendas/bruyi/contacts`)
-			const data = response.json()
+			const data = await response.json()
 
 			dispatch({
 				type: 'get_contacts',
 				payload: data.contacts
 			})
-			
+
 		} catch (error) {
 			console.error('There was an error getting the contacts', error);
 		}
 	}
 
-	useEffect(()=>{
-		getContacts
+	useEffect(() => {
+		getContacts()
 	}, [])
 
 	return (
 		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			{contact.map((item)=>(
-				// key={item.id},
-				informacion={item}
+			{contacts.map((item) => (
+				<ContactCard
+					key={item.id}
+					information={item}
+				/>
 			))}
 		</div>
 	);
