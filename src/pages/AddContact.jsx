@@ -40,17 +40,17 @@ const AddContact = () => {
       }
 
       const newContact = await response.json();
-      console.log("✅ Contact created:", newContact);
+      console.log("Contact created:", newContact);
 
       dispatch({
         type: "add_contact",
         payload: newContact,
       });
 
-      alert("Contact created successfully ✅");
-      navigate("/"); // Go back home
+      alert("Contact created successfully");
+      navigate("/");
     } catch (error) {
-      console.error("💥 Error creating contact:", error);
+      console.error("Error creating contact:", error);
       alert("There was a problem creating the contact.");
     }
   };
