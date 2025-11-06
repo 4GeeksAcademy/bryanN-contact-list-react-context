@@ -1,41 +1,61 @@
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"
+import { useEffect } from "react";
 import ContactCard from "../components/ContactCard.jsx";
 
 export const Home = () => {
+  const { store, dispatch } = useGlobalReducer();
+  const contacts = store.contacts || [];
 
-	const { store, dispatch } = useGlobalReducer()
-	const contacts = store.contacts || []
+  const getContacts = async () => {
+    try {
+      const checkResponse = await fetch("https://playground.4geeks.com/contact/agendas/bruyi");
 
+      if (checkResponse.status === 404) {
+        console.log("Agenda not found. Creating one...");
 
-	const getContacts = async () => {
-		try {
-			const response = await fetch(`https://playground.4geeks.com/contact/agendas/bruyi/contacts`)
-			const data = await response.json()
+        const createResponse = await fetch("https://playground.4geeks.com/contact/agendas/bruyi", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" }
+        });
 
-			dispatch({
-				type: 'get_contacts',
-				payload: data.contacts
-			})
+        if (!createResponse.ok) {
+          throw new Error(`Failed to create agenda (status ${createResponse.status})`);
+        }
 
-		} catch (error) {
-			console.error('There was an error getting the contacts', error);
-		}
-	}
+        console.log("Agenda created successfully");
+      }
 
-	useEffect(() => {
-		getContacts()
-	}, [])
+      const contactResponse = await fetch("https://playground.4geeks.com/contact/agendas/bruyi/contacts");
+      if (!contactResponse.ok) {
+        throw new Error(`Failed to fetch contacts (status ${contactResponse.status})`);
+      }
 
-	return (
-		<div className="text-center mt-5">
-			{contacts.map((item) => (
-				<ContactCard
-					key={item.id}
-					information={item}
-				/>
-			))}
-		</div>
-	);
-}; 
+      const data = await contactResponse.json();
+      console.log(`${data.contacts?.length || 0} contacts loaded successfully`);
+
+      dispatch({
+        type: "get_contacts",
+        payload: data.contacts || []
+      });
+
+    } catch (error) {
+      console.error("Error fetching contacts:", error);
+    }
+  };
+
+  useEffect(() => {
+    getContacts();
+  }, []);
+
+  return (
+    <div className="text-center mt-5">
+      {contacts.length === 0 ? (
+        <p>No contacts yet.</p>
+      ) : (
+        contacts.map((item) => (
+          <ContactCard key={item.id} information={item} />
+        ))
+      )}
+    </div>
+  );
+};
