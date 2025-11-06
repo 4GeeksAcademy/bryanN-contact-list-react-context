@@ -22,8 +22,10 @@ const ContactCard = ({ information }) => {
                             <h6 className="card-text"><FontAwesomeIcon className='me-2' icon={faEnvelope} /> {information.email}</h6>
                         </div>
                         <div className='col-2 mt-3'>
-                            <FontAwesomeIcon className='mx-3' icon={faPen} />
-                            <FontAwesomeIcon icon={faTrash} />
+                            <Link to={'/edit-contact/' + information.id}>
+                                <FontAwesomeIcon className='btn ' icon={faPen} />
+                            </Link>
+                            <FontAwesomeIcon className='btn ' icon={faTrash} />
                         </div>
                     </div>
                 </div>
