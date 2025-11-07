@@ -8,7 +8,7 @@ const EditContact = () => {
   const { contact_id } = useParams();
 
   const [data, setData] = useState({
-    full_name: "",
+    name: "",
     email: "",
     phone: "",
     address: "",
@@ -22,7 +22,7 @@ const EditContact = () => {
 
     if (contactToEdit) {
       setData({
-        full_name: contactToEdit.full_name || "",
+        name: contactToEdit.name || "",
         email: contactToEdit.email || "",
         phone: contactToEdit.phone || "",
         address: contactToEdit.address || "",
@@ -85,16 +85,14 @@ const EditContact = () => {
   return (
     <div className="container">
       <h2>Edit Contact</h2>
-      <h5 className="text-muted mb-4">Editing contact ID: {contact_id}</h5>
-
       <form className="row g-3" onSubmit={handleSubmit}>
         <div className="col-md-6">
-          <label className="form-label">Full Name</label>
+          <label className="form-label">Name</label>
           <input
             type="text"
             className="form-control"
-            name="full_name"
-            value={data.full_name}
+            name="name"
+            value={data.name}
             onChange={handleChange}
           />
         </div>
