@@ -76,7 +76,7 @@ const AddContact = () => {
 
         <div className="col-md-6">
           <label htmlFor="inputName" className="form-label">
-            Full Name
+            Name
           </label>
           <input
             type="text"
